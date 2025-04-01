@@ -44,7 +44,7 @@ import {
 import { Input } from "./ui/input";
 
 // Datos de ejemplo para unidades
-const fleetData = [
+export const fleetData = [
   {
     id: "VH-001",
     patente: "ABC123",
@@ -382,7 +382,7 @@ export function FleetTable({ searchQuery }: FleetTableProps) {
 
         <div className="mt-6">
           <Button onClick={() => setShowForm(!showForm)} className="mb-4">
-            {showForm ? "Cancel" : "Add New Vehicle"}
+            {showForm ? "Cancelar" : "Agregar nuevo vehículo"}
           </Button>
 
           {showForm && (
@@ -390,7 +390,7 @@ export function FleetTable({ searchQuery }: FleetTableProps) {
               onSubmit={handleSubmit}
               className="space-y-4 border rounded-md p-4"
             >
-              <h3 className="text-lg font-medium">Add New Vehicle</h3>
+              <h3 className="text-lg font-medium">Agregar nuevo vehículo</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="space-y-2">
                   <label htmlFor="id" className="text-sm font-medium">
@@ -407,7 +407,7 @@ export function FleetTable({ searchQuery }: FleetTableProps) {
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="license" className="text-sm font-medium">
-                    License
+                    Patente
                   </label>
                   <Input
                     id="license"
@@ -420,7 +420,7 @@ export function FleetTable({ searchQuery }: FleetTableProps) {
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="model" className="text-sm font-medium">
-                    Model
+                    Modelo
                   </label>
                   <Input
                     id="model"
@@ -433,7 +433,7 @@ export function FleetTable({ searchQuery }: FleetTableProps) {
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="number" className="text-sm font-medium">
-                    Number
+                    Número
                   </label>
                   <Input
                     id="number"
@@ -446,7 +446,7 @@ export function FleetTable({ searchQuery }: FleetTableProps) {
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="brand" className="text-sm font-medium">
-                    Brand
+                    Marca
                   </label>
                   <Input
                     id="brand"
@@ -459,7 +459,7 @@ export function FleetTable({ searchQuery }: FleetTableProps) {
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="type" className="text-sm font-medium">
-                    Type
+                    Tipo
                   </label>
                   <select
                     id="type"
@@ -477,7 +477,7 @@ export function FleetTable({ searchQuery }: FleetTableProps) {
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="status" className="text-sm font-medium">
-                    Status
+                    Estado
                   </label>
                   <select
                     id="status"
@@ -495,29 +495,13 @@ export function FleetTable({ searchQuery }: FleetTableProps) {
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="maintenance" className="text-sm font-medium">
-                    Next Maintenance
+                    Próximo mantenimiento
                   </label>
                   <Input
                     id="maintenance"
                     name="maintenance"
                     type="date"
                     value={newUnit.maintenance}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label
-                    htmlFor="license_expiry"
-                    className="text-sm font-medium"
-                  >
-                    License Expiry
-                  </label>
-                  <Input
-                    id="license_expiry"
-                    name="license_expiry"
-                    type="date"
-                    value={newUnit.license_expiry}
                     onChange={handleInputChange}
                     required
                   />
@@ -529,9 +513,9 @@ export function FleetTable({ searchQuery }: FleetTableProps) {
                   variant="outline"
                   onClick={() => setShowForm(false)}
                 >
-                  Cancel
+                  Cancelar
                 </Button>
-                <Button type="submit">Save Vehicle</Button>
+                <Button type="submit">Agregar</Button>
               </div>
             </form>
           )}

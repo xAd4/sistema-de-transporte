@@ -1,10 +1,17 @@
-"use client"
+/* eslint-disable @typescript-eslint/no-unused-vars */
+"use client";
 
-import { useState } from "react"
-import { ArrowUpDown, Edit, MoreHorizontal } from "lucide-react"
+import { useState } from "react";
+import { ArrowUpDown, Edit, MoreHorizontal } from "lucide-react";
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,11 +19,19 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+} from "@/components/ui/dropdown-menu";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Input } from "./ui/input";
 
 // Datos de ejemplo para clientes
-const clientsData = [
+export const clientsData = [
   {
     id: "C-001",
     nombre: "Corporativo Express",
@@ -83,76 +98,151 @@ const clientsData = [
     contrato: "2025-04-15",
     numeroContrato: "CONT-2023-006",
   },
-]
+];
 
 interface ClientsTableProps {
-  searchQuery: string
+  searchQuery: string;
 }
 
 export function ClientsTable({ searchQuery }: ClientsTableProps) {
-  const [sortColumn, setSortColumn] = useState<string | null>(null)
-  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc")
+  const [sortColumn, setSortColumn] = useState<string | null>(null);
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
 
   // Filtrar datos basados en la búsqueda
   const filteredData = clientsData.filter((client) =>
-    Object.values(client).some((value) => value.toString().toLowerCase().includes(searchQuery.toLowerCase())),
-  )
+    Object.values(client).some((value) =>
+      value.toString().toLowerCase().includes(searchQuery.toLowerCase())
+    )
+  );
 
   // Ordenar datos basados en columna y dirección
   const sortedData = [...filteredData].sort((a, b) => {
-    if (!sortColumn) return 0
+    if (!sortColumn) return 0;
 
-    const aValue = a[sortColumn as keyof typeof a]
-    const bValue = b[sortColumn as keyof typeof b]
+    const aValue = a[sortColumn as keyof typeof a];
+    const bValue = b[sortColumn as keyof typeof b];
 
-    if (aValue < bValue) return sortDirection === "asc" ? -1 : 1
-    if (aValue > bValue) return sortDirection === "asc" ? 1 : -1
-    return 0
-  })
+    if (aValue < bValue) return sortDirection === "asc" ? -1 : 1;
+    if (aValue > bValue) return sortDirection === "asc" ? 1 : -1;
+    return 0;
+  });
 
   // Manejar ordenamiento
-  const handleSort = (column: string) => {
+  /* const handleSort = (column: string) => {
     if (sortColumn === column) {
-      setSortDirection(sortDirection === "asc" ? "desc" : "asc")
+      setSortDirection(sortDirection === "asc" ? "desc" : "asc");
     } else {
-      setSortColumn(column)
-      setSortDirection("asc")
+      setSortColumn(column);
+      setSortDirection("asc");
     }
-  }
+  };*/
+
+  const [showForm, setShowForm] = useState(false);
+  const [newUnit, setNewUnit] = useState({
+    id: "",
+    nombre: "",
+    tipo: "",
+    unidades: "",
+    servicios: "",
+    type: "Van",
+    client: "Unassigned",
+    service: "Unassigned",
+    driver: "Unassigned",
+    finDeContrato: "",
+    nombre_expiry: "",
+    contrato: "",
+  });
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setNewUnit((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Aquí iría la lógica para guardar la nueva unidad
+    console.log("Nueva unidad a guardar:", newUnit);
+    // Reset form
+    setNewUnit({
+      id: "",
+      nombre: "",
+      tipo: "",
+      unidades: "",
+      servicios: "",
+      type: "Van",
+      client: "Unassigned",
+      service: "Unassigned",
+      driver: "Unassigned",
+      finDeContrato: "",
+      nombre_expiry: "",
+      contrato: "",
+    });
+    setShowForm(false);
+  };
 
   return (
     <Card>
       <CardHeader>
         <CardTitle>Gestión de Clientes</CardTitle>
-        <CardDescription>Administre sus clientes, vea asignaciones de servicios y contratos.</CardDescription>
+        <CardDescription>
+          Administre sus clientes, vea asignaciones de servicios y contratos.
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead onClick={() => handleSort("id")} className="cursor-pointer">
-                ID <ArrowUpDown className="ml-2 h-4 w-4 inline" />
+              <TableHead
+                // onClick={() => handleSort("id")}
+                className="cursor-pointer"
+              >
+                ID {/*<ArrowUpDown className="ml-2 h-4 w-4 inline" />*/}
               </TableHead>
-              <TableHead onClick={() => handleSort("nombre")} className="cursor-pointer">
-                Nombre <ArrowUpDown className="ml-2 h-4 w-4 inline" />
+              <TableHead
+                //onClick={() => handleSort("nombre")}
+                className="cursor-pointer"
+              >
+                Nombre {/*<ArrowUpDown className="ml-2 h-4 w-4 inline" />*/}
               </TableHead>
-              <TableHead onClick={() => handleSort("tipo")} className="cursor-pointer">
-                Tipo <ArrowUpDown className="ml-2 h-4 w-4 inline" />
+              <TableHead
+                // onClick={() => handleSort("tipo")}
+                className="cursor-pointer"
+              >
+                Tipo {/*<ArrowUpDown className="ml-2 h-4 w-4 inline" />*/}
               </TableHead>
-              <TableHead onClick={() => handleSort("unidades")} className="cursor-pointer">
-                Unidades <ArrowUpDown className="ml-2 h-4 w-4 inline" />
+              <TableHead
+                // onClick={() => handleSort("unidades")}
+                className="cursor-pointer"
+              >
+                Unidades {/*<ArrowUpDown className="ml-2 h-4 w-4 inline" />*/}
               </TableHead>
-              <TableHead onClick={() => handleSort("servicios")} className="cursor-pointer">
-                Servicios <ArrowUpDown className="ml-2 h-4 w-4 inline" />
+              <TableHead
+                // onClick={() => handleSort("servicios")}
+                className="cursor-pointer"
+              >
+                Servicios {/*<ArrowUpDown className="ml-2 h-4 w-4 inline" />*/}
               </TableHead>
-              <TableHead onClick={() => handleSort("contacto")} className="cursor-pointer">
-                Contacto <ArrowUpDown className="ml-2 h-4 w-4 inline" />
+              <TableHead
+                //onClick={() => handleSort("contacto")}
+                className="cursor-pointer"
+              >
+                Contacto {/*<ArrowUpDown className="ml-2 h-4 w-4 inline" />*/}
               </TableHead>
-              <TableHead onClick={() => handleSort("numeroContrato")} className="cursor-pointer">
-                Nº Contrato <ArrowUpDown className="ml-2 h-4 w-4 inline" />
+              <TableHead
+                //onClick={() => handleSort("numeroContrato")}
+                className="cursor-pointer"
+              >
+                Nº Contrato{" "}
+                {/*<ArrowUpDown className="ml-2 h-4 w-4 inline" />*/}
               </TableHead>
-              <TableHead onClick={() => handleSort("contrato")} className="cursor-pointer">
-                Fin Contrato <ArrowUpDown className="ml-2 h-4 w-4 inline" />
+              <TableHead
+                // onClick={() => handleSort("contrato")}
+                className="cursor-pointer"
+              >
+                Fin Contrato{" "}
+                {/*<ArrowUpDown className="ml-2 h-4 w-4 inline" />*/}
               </TableHead>
               <TableHead className="text-right">Acciones</TableHead>
             </TableRow>
@@ -195,8 +285,154 @@ export function ClientsTable({ searchQuery }: ClientsTableProps) {
             ))}
           </TableBody>
         </Table>
+
+        <div className="mt-6">
+          <Button onClick={() => setShowForm(!showForm)} className="mb-4">
+            {showForm ? "Cancelar" : "Agregar nuevo cliente"}
+          </Button>
+
+          {showForm && (
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-4 border rounded-md p-4"
+            >
+              <h3 className="text-lg font-medium">Agregar nuevo cliente</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <label htmlFor="id" className="text-sm font-medium">
+                    ID
+                  </label>
+                  <Input
+                    id="id"
+                    name="id"
+                    value={newUnit.id}
+                    onChange={handleInputChange}
+                    placeholder="VH-XXX"
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="nombre" className="text-sm font-medium">
+                    Nombre
+                  </label>
+                  <Input
+                    id="nombre"
+                    name="nombre"
+                    value={newUnit.nombre}
+                    onChange={handleInputChange}
+                    placeholder="John Doe"
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="tipo" className="text-sm font-medium">
+                    Tipo
+                  </label>
+                  <select
+                    id="type"
+                    name="type"
+                    value={newUnit.type}
+                    onChange={handleInputChange}
+                    className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                    required
+                  >
+                    <option value="Van">Corporativo</option>
+                    <option value="Bus">Educación</option>
+                    <option value="Minibus">Transporte</option>
+                    <option value="Car">Salud</option>
+                    <option value="Car">Hoteleria</option>
+                  </select>
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="unidades" className="text-sm font-medium">
+                    Unidades
+                  </label>
+                  <Input
+                    id="unidades"
+                    name="unidades"
+                    value={newUnit.unidades}
+                    onChange={handleInputChange}
+                    placeholder="001"
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="servicios" className="text-sm font-medium">
+                    Servicios
+                  </label>
+                  <select
+                    id="servicios"
+                    name="servicios"
+                    value={newUnit.servicios}
+                    onChange={handleInputChange}
+                    className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                    required
+                  >
+                    <option value="Van">Transporte Ejecutivo</option>
+                    <option value="Bus">Rutas Escolares</option>
+                    <option value="Minibus">Tours Urbanos</option>
+                    <option value="Car">Shuttles Aeropuerto</option>
+                    <option value="Car">Transporte Residentes</option>
+                    <option value="Car">Traslados Turísticos</option>
+                  </select>
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="contacto" className="text-sm font-medium">
+                    Contacto
+                  </label>
+                  <Input
+                    id="servicios"
+                    name="servicios"
+                    value={newUnit.servicios}
+                    onChange={handleInputChange}
+                    placeholder="John Benz"
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="contrato" className="text-sm font-medium">
+                    N° Contrato
+                  </label>
+                  <Input
+                    id="contrato"
+                    name="contrato"
+                    value={newUnit.contrato}
+                    onChange={handleInputChange}
+                    placeholder="CONT-2025-002"
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label
+                    htmlFor="finDeContrato"
+                    className="text-sm font-medium"
+                  >
+                    Fin de contrato
+                  </label>
+                  <Input
+                    id="finDeContrato"
+                    name="finDeContrato"
+                    type="date"
+                    value={newUnit.finDeContrato}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+              </div>
+              <div className="flex justify-end gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setShowForm(false)}
+                >
+                  Cancelar
+                </Button>
+                <Button type="submit">Agregar</Button>
+              </div>
+            </form>
+          )}
+        </div>
       </CardContent>
     </Card>
-  )
+  );
 }
-
