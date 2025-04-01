@@ -2,10 +2,10 @@ import { useState } from "react";
 import {
   Bus,
   Calendar,
-  ChevronDown,
-  Filter,
-  Plus,
-  RefreshCw,
+  //ChevronDown,
+  //Filter,
+  //Plus,
+  //RefreshCw,
   Search,
   Users,
 } from "lucide-react";
@@ -50,12 +50,12 @@ export default function Dashboard() {
           </h1>
         </div>
         <div className="ml-auto flex items-center gap-2">
-          <Button variant="outline" size="sm" className="h-8 gap-1">
+          {/*<Button variant="outline" size="sm" className="h-8 gap-1">
             <RefreshCw className="h-3.5 w-3.5" />
             <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
               Actualizar
             </span>
-          </Button>
+          </Button>*/}
           <Button
             variant="outline"
             size="sm"
@@ -138,13 +138,13 @@ export default function Dashboard() {
           </div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm" className="h-8 gap-1">
+              {/*<Button variant="outline" size="sm" className="h-8 gap-1">
                 <Filter className="h-3.5 w-3.5" />
                 <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
                   Filtrar
                 </span>
                 <ChevronDown className="h-3.5 w-3.5" />
-              </Button>
+              </Button>*/}
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Filtrar por</DropdownMenuLabel>
@@ -155,12 +155,13 @@ export default function Dashboard() {
               <DropdownMenuItem>Tipo de Servicio</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <Button size="sm" className="h-8 gap-1">
+
+          {/* <Button size="sm" className="h-8 gap-1">
             <Plus className="h-3.5 w-3.5" />
             <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
               Agregar
             </span>
-          </Button>
+          </Button>*/}
         </div>
         <Tabs defaultValue="unidades">
           <div className="flex items-center justify-between">
